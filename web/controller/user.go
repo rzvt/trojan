@@ -200,6 +200,8 @@ func ClashSubInfo(c *gin.Context) {
 			c.Header("subscription-userinfo", userInfo)
 
 			domain, port := trojan.GetDomainAndPort()
+			// domain is client access host
+			domain := c.Request.Host
 			name := fmt.Sprintf("%s:%d", domain, port)
 			configData := string(core.Load(""))
 			if gjson.Get(configData, "websocket").Exists() && gjson.Get(configData, "websocket.enabled").Bool() {
